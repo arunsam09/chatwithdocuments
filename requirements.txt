@@ -6,4 +6,4 @@ tiktoken
 pypdf
 langchain_community
 jinja2
-protobuf==3.20.*
+protobuf==3.20.
