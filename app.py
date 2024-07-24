@@ -19,12 +19,12 @@ def generate_response(uploaded_file, query_text):
         # Split documents into chunks
 
         # Select embeddings
-        embeddings = HuggingFaceInferenceAPIEmbeddings(api_key="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", model_name="thenlper/gte-large")
+        embeddings = HuggingFaceInferenceAPIEmbeddings(api_key=st.secrets["hfkey"], model_name="thenlper/gte-large")
         # Create a vectorstore from documents
         db = Chroma.from_documents(documents, embeddings)
         # Create retriever interface
         retriever = db.as_retriever()
-        model = HuggingFaceHub(repo_id="mistralai/Mistral-7B-Instruct-v0.2", huggingfacehub_api_token="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", model_kwargs={"temperature":0.01, "do_sample": True, "max_new_tokens":1024},)
+        model = HuggingFaceHub(repo_id="mistralai/Mistral-7B-Instruct-v0.2", huggingfacehub_api_token=st.secrets["hfkey"], model_kwargs={"temperature":0.01, "do_sample": True, "max_new_tokens":1024},)
         # Create QA chain
         qa = RetrievalQA.from_chain_type(llm=model, chain_type='stuff', retriever=retriever)
         return qa.run(query_text)
