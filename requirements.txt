@@ -6,5 +6,6 @@ tiktoken
 pypdf
 langchain_community
 jinja2
+sqlite3 
 
 
